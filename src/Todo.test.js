@@ -1,9 +1,36 @@
-import React from 'React'
-import { render } from '@testing-library/react'
-import Todo from './Todo'
+import React from "react";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
 
-test('render Todo', () => {
-  const { getByText } = render(<Todo />)
-  const todoElement = getByText(/todo/i)
-  expect(todoElement).toBeInTheDocument()
-})
+import Todo from "./Todo";
+
+let container = null;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+it("renders with or without a name", () => {
+  act(() => {
+    render(<Todo />, container);
+  });
+  expect(container.textContent).toBe("todo");
+
+  // act(() => {
+  //   render(<Hello name="Jenny" />, container);
+  // });
+  // expect(container.textContent).toBe("Hello, Jenny!");
+
+  // act(() => {
+  //   render(<Hello name="Margaret" />, container);
+  // });
+  // expect(container.textContent).toBe("Hello, Margaret!");
+});
