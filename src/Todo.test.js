@@ -1,36 +1,67 @@
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import React from 'react'
+import { render, unmountComponentAtNode } from 'react-dom'
+import { act } from 'react-dom/test-utils'
 
-import Todo from "./Todo";
+import Todo from './Todo'
 
-let container = null;
+let container = null
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
+  container = document.createElement('div')
+  document.body.appendChild(container)
+})
 
 afterEach(() => {
   // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
+  unmountComponentAtNode(container)
+  container.remove()
+  container = null
+})
 
-it("renders with or without a name", () => {
-  act(() => {
-    render(<Todo />, container);
-  });
-  expect(container.textContent).toBe("todo");
+describe('<Todo>', () => {
+  it('should output a p', () => {
+    act(() => {
+      render(<Todo />, container)
+    })
+    expect(container.querySelector('p')).toBeTruthy()
+  })
 
-  // act(() => {
-  //   render(<Hello name="Jenny" />, container);
-  // });
-  // expect(container.textContent).toBe("Hello, Jenny!");
+  it('should output a p and accepts a text prop', () => {
+    act(() => {
+      render(<Todo text="todo" />, container)
+    })
+    expect(container.querySelector('p')).toBeTruthy()
+    expect(container.textContent).toBe('todo')
+  })
 
-  // act(() => {
-  //   render(<Hello name="Margaret" />, container);
-  // });
-  // expect(container.textContent).toBe("Hello, Margaret!");
-});
+  it('should output a input (accepts a isEdit prop)', () => {
+    act(() => {
+      render(<Todo isEdit={true} />, container)
+    })
+    expect(container.querySelector('input')).toBeTruthy()
+  })
+
+  it('should output a input and accepts a text prop', () => {
+    act(() => {
+      render(<Todo isEdit={true} text="todo" />, container)
+    })
+    expect(container.querySelector('input')).toBeTruthy()
+    expect(container.querySelector('input').value).toBe('todo')
+  })
+
+  // it('accepts a dblClick prop', () => {
+  //   act(() => {
+  //     render(<Todo onDoubleClick={fn}/>, container)
+  //   })
+  //   expect(fn.mock.calls.length).toBe(1);
+  // })
+    // act(() => {
+    //   render(<Todo isEdit={true} />, container);
+    // });
+    // expect(container.textContent).toBe("Hello, Jenny!");
+
+    // act(() => {
+    //   render(<Hello name="Margaret" />, container);
+    // });
+    // expect(container.textContent).toBe("Hello, Margaret!");
+})
