@@ -20,7 +20,7 @@ afterEach(() => {
 
 it("renders with or without a name", () => {
   act(() => {
-    render(<Todos />, container);
+    render(<Todos text="todo"/>, container);
   });
   expect(container.textContent).toBe("todo");
 

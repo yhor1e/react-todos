@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
-
+import jest from 'jest-mock';
 import Todo from './Todo'
 
 let container = null
@@ -49,12 +49,14 @@ describe('<Todo>', () => {
     expect(container.querySelector('input').value).toBe('todo')
   })
 
-  // it('accepts a dblClick prop', () => {
-  //   act(() => {
-  //     render(<Todo onDoubleClick={fn}/>, container)
-  //   })
-  //   expect(fn.mock.calls.length).toBe(1);
-  // })
+  it('accepts a dblClick prop', () => {
+    const mockClick = jest.fn();
+    act(() => {
+      render(<Todo onDoubleClick={mockClick}/>, container)
+    })
+    container.querySelector('li').dispatchEvent(new MouseEvent('dblclick', {bubbles: true}))
+    expect(mockClick).toHaveBeenCalled();
+  })
     // act(() => {
     //   render(<Todo isEdit={true} />, container);
     // });
