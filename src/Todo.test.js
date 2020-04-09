@@ -1,69 +1,35 @@
 import React from 'react'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
-import jest from 'jest-mock';
+import jest from 'jest-mock'
 import Todo from './Todo'
-
-let container = null
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div')
-  document.body.appendChild(container)
-})
-
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container)
-  container.remove()
-  container = null
-})
+import { shallow } from 'enzyme'
 
 describe('<Todo>', () => {
   it('should output a p', () => {
-    act(() => {
-      render(<Todo />, container)
-    })
-    expect(container.querySelector('p')).toBeTruthy()
+    const wrapper = shallow(<Todo />)
+    expect(wrapper.find('p')).toHaveLength(1)
   })
 
   it('should output a p and accepts a text prop', () => {
-    act(() => {
-      render(<Todo text="todo" />, container)
-    })
-    expect(container.querySelector('p')).toBeTruthy()
-    expect(container.textContent).toBe('todo')
+    const wrapper = shallow(<Todo text="todo" />)
+    expect(wrapper.find('p')).toHaveLength(1)
+    expect(wrapper.text()).toEqual('todo')
   })
 
   it('should output a input (accepts a isEdit prop)', () => {
-    act(() => {
-      render(<Todo isEdit={true} />, container)
-    })
-    expect(container.querySelector('input')).toBeTruthy()
+    const wrapper = shallow(<Todo isEdit={true} />)
+    expect(wrapper.find('input')).toHaveLength(1)
   })
 
   it('should output a input and accepts a text prop', () => {
-    act(() => {
-      render(<Todo isEdit={true} text="todo" />, container)
-    })
-    expect(container.querySelector('input')).toBeTruthy()
-    expect(container.querySelector('input').value).toBe('todo')
+    const wrapper = shallow(<Todo isEdit={true} text="todo" />)
+    expect(wrapper.find('input')).toHaveLength(1)
+    expect(wrapper.find('input').props().value).toEqual('todo')
   })
 
   it('accepts a dblClick prop', () => {
-    const mockClick = jest.fn();
-    act(() => {
-      render(<Todo onDoubleClick={mockClick}/>, container)
-    })
-    container.querySelector('li').dispatchEvent(new MouseEvent('dblclick', {bubbles: true}))
-    expect(mockClick).toHaveBeenCalled();
+    const mockClick = jest.fn()
+    const wrapper = shallow(<Todo onDoubleClick={mockClick} />)
+    wrapper.find('li').simulate('dblclick')
+    expect(mockClick).toHaveBeenCalled()
   })
-    // act(() => {
-    //   render(<Todo isEdit={true} />, container);
-    // });
-    // expect(container.textContent).toBe("Hello, Jenny!");
-
-    // act(() => {
-    //   render(<Hello name="Margaret" />, container);
-    // });
-    // expect(container.textContent).toBe("Hello, Margaret!");
 })
