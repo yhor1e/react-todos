@@ -26,7 +26,7 @@ describe('<Todo>', () => {
     expect(wrapper.find('input').props().value).toEqual('todo')
   })
 
-  it('accepts a dblClick prop', () => {
+  it('accepts a onDoubleClick prop', () => {
     const mockClick = jest.fn()
     const wrapper = shallow(<Todo onDoubleClick={mockClick} />)
     wrapper.find('li').simulate('dblclick')
