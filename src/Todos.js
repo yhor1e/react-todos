@@ -7,7 +7,12 @@ class Todos extends React.Component {
   }
   render() {
     const listItems = this.props.todos.map((todo) => (
-      <Todo key={todo.id} text={todo.text} />
+      <Todo
+        key={todo.id}
+        text={todo.text}
+        isEdit={todo.isEdit}
+        onDoubleClick={() => this.props.onDoubleClick(todo.id)}
+      />
     ))
     return <ul>{listItems}</ul>
   }

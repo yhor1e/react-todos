@@ -13,10 +13,19 @@ class App extends React.Component {
       ],
     }
   }
+  handleDoubleClickListItem(i) {
+    const todos = [...this.state.todos]
+    todos.forEach((todo) => (todo.isEdit = false))
+    todos.find((todo) => todo.id === i).isEdit = true
+    this.setState({ todos: todos })
+  }
   render() {
     return (
       <div className="App">
-        <Todos todos={this.state.todos} />
+        <Todos
+          todos={this.state.todos}
+          onDoubleClick={(i) => this.handleDoubleClickListItem(i)}
+        />
       </div>
     )
   }
