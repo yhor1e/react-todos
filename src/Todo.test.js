@@ -23,7 +23,7 @@ describe('<Todo>', () => {
   it('should output a input and accepts a text prop', () => {
     const wrapper = shallow(<Todo isEdit={true} text="todo" />)
     expect(wrapper.find('input')).toHaveLength(1)
-    expect(wrapper.find('input').props().value).toEqual('todo')
+    expect(wrapper.find('input').props().defaultValue).toEqual('todo')
   })
 
   it('accepts a onDoubleClick prop', () => {
