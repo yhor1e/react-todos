@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import NewTodo from './NewTodo'
 import Todos from './Todos'
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <NewTodo />
         <Todos
           todos={this.state.todos}
           onDoubleClick={(i) => this.handleDoubleClickListItem(i)}
