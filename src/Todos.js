@@ -6,12 +6,12 @@ class Todos extends React.Component {
     todos: [],
   }
   render() {
-    const listItems = this.props.todos.map((todo) => (
+    const listItems = this.props.todos.map((todo, index) => (
       <Todo
-        key={todo.id}
+        key={index}
         text={todo.text}
         isEdit={todo.isEdit}
-        onDoubleClick={() => this.props.onDoubleClick(todo.id)}
+        onDoubleClick={() => this.props.onDoubleClick(index)}
       />
     ))
     return <ul>{listItems}</ul>

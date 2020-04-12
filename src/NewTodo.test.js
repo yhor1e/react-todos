@@ -10,9 +10,9 @@ describe('<NewTodo>', () => {
   })
 
   it('accepts a onChange prop', () => {
-    const mockChange = jest.fn()
-    const wrapper = shallow(<NewTodo onChange={mockChange} />)
-    wrapper.find('input').simulate('change')
-    expect(mockChange).toHaveBeenCalled()
+    const mockKeyPress = jest.fn()
+    const wrapper = shallow(<NewTodo onKeyPress={mockKeyPress} />)
+    wrapper.find('input').simulate('keypress')
+    expect(mockKeyPress).toHaveBeenCalled()
   })
 })

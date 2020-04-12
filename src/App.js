@@ -8,22 +8,28 @@ class App extends React.Component {
     super(props)
     this.state = {
       todos: [
-        { id: 1, text: 'todo1', isEdit: false },
-        { id: 2, text: 'todo2', isEdit: false },
-        { id: 3, text: 'todo3', isEdit: false },
+        { text: 'todo1', isEdit: false },
+        { text: 'todo2', isEdit: false },
+        { text: 'todo3', isEdit: false },
       ],
     }
+  }
+  handleKeyPressNewTodo(e) {
+    if (e.key !== 'Enter') return
+    const todos = [...this.state.todos]
+    todos.push({ text: e.target.value, isEdit: false })
+    this.setState({ todos: todos })
   }
   handleDoubleClickListItem(i) {
     const todos = [...this.state.todos]
     todos.forEach((todo) => (todo.isEdit = false))
-    todos.find((todo) => todo.id === i).isEdit = true
+    todos[i].isEdit = true
     this.setState({ todos: todos })
   }
   render() {
     return (
       <div className="App">
-        <NewTodo />
+        <NewTodo onKeyPress={(e) => this.handleKeyPressNewTodo(e)} />
         <Todos
           todos={this.state.todos}
           onDoubleClick={(i) => this.handleDoubleClickListItem(i)}
