@@ -9,7 +9,7 @@ describe('<NewTodo>', () => {
     expect(wrapper.find('input')).toHaveLength(1)
   })
 
-  it('accepts a onDoubleClick prop', () => {
+  it('accepts a onChange prop', () => {
     const mockChange = jest.fn()
     const wrapper = shallow(<NewTodo onChange={mockChange} />)
     wrapper.find('input').simulate('change')
