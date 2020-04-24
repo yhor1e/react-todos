@@ -11,7 +11,9 @@ class Todos extends React.Component {
         key={index}
         text={todo.text}
         isEdit={todo.isEdit}
+        isDone={todo.isDone}
         onDoubleClick={() => this.props.onDoubleClick(index)}
+        onClick={() => this.props.onClick(index)}
       />
     ))
     return <ul>{listItems}</ul>

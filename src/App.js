@@ -8,9 +8,9 @@ class App extends React.Component {
     super(props)
     this.state = {
       todos: [
-        { text: 'todo1', isEdit: false },
-        { text: 'todo2', isEdit: false },
-        { text: 'todo3', isEdit: false },
+        { text: 'todo1', isEdit: false, isDone: false },
+        { text: 'todo2', isEdit: false, isDone: true },
+        { text: 'todo3', isEdit: false, isDone: false },
       ],
     }
   }
@@ -26,6 +26,11 @@ class App extends React.Component {
     todos[i].isEdit = true
     this.setState({ todos: todos })
   }
+  handleClickListItemCheckbox(i) {
+    const todos = [...this.state.todos]
+    todos[i].isDone = !todos[i].isDone
+    this.setState({ todos: todos })
+  }
   render() {
     return (
       <div className="App">
@@ -33,6 +38,7 @@ class App extends React.Component {
         <Todos
           todos={this.state.todos}
           onDoubleClick={(i) => this.handleDoubleClickListItem(i)}
+          onClick={(i) => this.handleClickListItemCheckbox(i)}
         />
       </div>
     )

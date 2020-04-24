@@ -7,10 +7,18 @@ class Todo extends React.Component {
     if (this.props.isEdit) {
       content = <input type="text" defaultValue={this.props.text} />
     } else {
-      content = <p>{this.props.text}</p>
+      content = (
+        <>
+          <p onDoubleClick={this.props.onDoubleClick}>{this.props.text}</p>
+          <input
+            type="checkbox"
+            defaultChecked={this.props.isDone}
+            onClick={this.props.onClick}
+          />
+        </>
+      )
     }
-
-    return <li onDoubleClick={this.props.onDoubleClick}>{content}</li>
+    return <li>{content}</li>
   }
 }
 
