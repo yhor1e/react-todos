@@ -9,6 +9,11 @@ describe('<Todo>', () => {
     expect(wrapper.find('p')).toHaveLength(1)
   })
 
+  it('should output a input[type="checkbox"]', () => {
+    const wrapper = shallow(<Todo />)
+    expect(wrapper.find('input[type="checkbox"]')).toHaveLength(1)
+  })
+
   it('should output a p and accepts a text prop', () => {
     const wrapper = shallow(<Todo text="todo" />)
     expect(wrapper.find('p')).toHaveLength(1)
@@ -29,7 +34,7 @@ describe('<Todo>', () => {
   it('accepts a onDoubleClick prop', () => {
     const mockClick = jest.fn()
     const wrapper = shallow(<Todo onDoubleClick={mockClick} />)
-    wrapper.find('li').simulate('dblclick')
+    wrapper.find('li > p').simulate('dblclick')
     expect(mockClick).toHaveBeenCalled()
   })
 })
