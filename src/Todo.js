@@ -10,7 +10,11 @@ class Todo extends React.Component {
       content = (
         <>
           <p onDoubleClick={this.props.onDoubleClick}>{this.props.text}</p>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            defaultChecked={this.props.isDone}
+            onClick={this.props.onClick}
+          />
         </>
       )
     }
