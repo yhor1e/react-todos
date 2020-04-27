@@ -16,7 +16,9 @@ describe('<Todo>', () => {
 
   it('accepts a isDone prop', () => {
     const wrapper = shallow(<Todo isDone={true} />)
-    expect(wrapper.find('input[type="checkbox"]')).toEqual(true)
+    expect(
+      wrapper.find('input[type="checkbox"]').prop('defaultChecked')
+    ).toEqual(true)
   })
 
   it('accepts a onClick prop', () => {
