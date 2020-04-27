@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css'
 import NewTodo from './NewTodo'
 import Todos from './Todos'
+import Todo from './Todo'
 
 class App extends React.Component {
   constructor(props) {
@@ -32,14 +33,21 @@ class App extends React.Component {
     this.setState({ todos: todos })
   }
   render() {
+    const listItems = this.state.todos.map((todo, index) => (
+      <Todo
+        key={index}
+        text={todo.text}
+        isEdit={todo.isEdit}
+        isDone={todo.isDone}
+        onDoubleClick={() => this.handleDoubleClickListItem(index)}
+        onClick={() => this.handleClickListItemCheckbox(index)}
+      />
+    ))
+
     return (
       <div className="App">
         <NewTodo onKeyPress={(e) => this.handleKeyPressNewTodo(e)} />
-        <Todos
-          todos={this.state.todos}
-          onDoubleClick={(i) => this.handleDoubleClickListItem(i)}
-          onClick={(i) => this.handleClickListItemCheckbox(i)}
-        />
+        <Todos>{listItems}</Todos>
       </div>
     )
   }
