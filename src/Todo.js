@@ -5,7 +5,13 @@ class Todo extends React.Component {
     let content
 
     if (this.props.isEdit) {
-      content = <input type="text" defaultValue={this.props.text} />
+      content = (
+        <input
+          type="text"
+          defaultValue={this.props.text}
+          onChange={this.props.onChange}
+        />
+      )
     } else {
       content = (
         <>

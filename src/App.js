@@ -21,6 +21,11 @@ class App extends React.Component {
     todos.push({ text: e.target.value, isEdit: false })
     this.setState({ todos: todos })
   }
+  handleChangeItem(i, text) {
+    const todos = [...this.state.todos]
+    todos[i].text = text
+    this.setState({ todos: todos })
+  }
   handleDoubleClickListItem(i) {
     const todos = [...this.state.todos]
     todos.forEach((todo) => (todo.isEdit = false))
@@ -41,6 +46,7 @@ class App extends React.Component {
         isDone={todo.isDone}
         onDoubleClick={() => this.handleDoubleClickListItem(index)}
         onClick={() => this.handleClickListItemCheckbox(index)}
+        onChange={(e) => this.handleChangeItem(index, e.target.value)}
       />
     ))
 

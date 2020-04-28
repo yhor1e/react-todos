@@ -28,6 +28,13 @@ describe('<Todo>', () => {
     expect(mockClick).toHaveBeenCalled()
   })
 
+  it('accepts a onChange prop', () => {
+    const mockChange = jest.fn()
+    const wrapper = shallow(<Todo isEdit={true} onChange={mockChange} />)
+    wrapper.find('input[type="text"]').simulate('change')
+    expect(mockChange).toHaveBeenCalled()
+  })
+
   it('should output a p and accepts a text prop', () => {
     const wrapper = shallow(<Todo text="todo" />)
     expect(wrapper.find('p')).toHaveLength(1)
