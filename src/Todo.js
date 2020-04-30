@@ -10,6 +10,7 @@ class Todo extends React.Component {
           type="text"
           defaultValue={this.props.text}
           onChange={this.props.onChange}
+          onBlur={this.props.onBlur}
         />
       )
     } else {
