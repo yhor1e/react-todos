@@ -42,6 +42,13 @@ describe('<Todo>', () => {
     expect(mockBlur).toHaveBeenCalled()
   })
 
+  it('accepts a onKeyPress prop', () => {
+    const mockKeypress = jest.fn()
+    const wrapper = shallow(<Todo isEdit={true} onKeyPress={mockKeypress} />)
+    wrapper.find('input[type="text"]').simulate('keypress')
+    expect(mockKeypress).toHaveBeenCalled()
+  })
+
   it('should output a p and accepts a text prop', () => {
     const wrapper = shallow(<Todo text="todo" />)
     expect(wrapper.find('p')).toHaveLength(1)
