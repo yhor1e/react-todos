@@ -17,7 +17,12 @@ class Todo extends React.Component {
     } else {
       content = (
         <>
-          <p onDoubleClick={this.props.onDoubleClick}>{this.props.text}</p>
+          <p
+            onDoubleClick={this.props.onDoubleClick}
+            className={this.props.isDone ? 'done' : ''}
+          >
+            {this.props.text}
+          </p>
           <input
             type="checkbox"
             defaultChecked={this.props.isDone}

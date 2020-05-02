@@ -39,6 +39,7 @@ class App extends React.Component {
   }
   handleDoubleClickListItem(i) {
     const todos = [...this.state.todos]
+    if (todos[i].isDone) return
     todos.forEach((todo) => (todo.isEdit = false))
     todos[i].isEdit = true
     this.setState({ todos: todos })

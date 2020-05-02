@@ -19,6 +19,7 @@ describe('<Todo>', () => {
     expect(
       wrapper.find('input[type="checkbox"]').prop('defaultChecked')
     ).toEqual(true)
+    expect(wrapper.find('p').prop('className')).toEqual('done')
   })
 
   it('accepts a onClick prop', () => {
