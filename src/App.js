@@ -20,6 +20,7 @@ class App extends React.Component {
     const todos = [...this.state.todos]
     todos.push({ text: e.target.value, isEdit: false })
     this.setState({ todos: todos })
+    e.target.value = ''
   }
   handleChangeItem(i, text) {
     const todos = [...this.state.todos]
