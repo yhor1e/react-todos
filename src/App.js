@@ -28,7 +28,6 @@ class App extends React.Component {
     this.setState({ todos: todos })
   }
   handleBlurItem(i) {
-    console.log('blur')
     const todos = [...this.state.todos]
     todos.forEach((todo) => (todo.isEdit = false))
     this.setState({ todos: todos })
