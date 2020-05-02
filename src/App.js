@@ -26,6 +26,16 @@ class App extends React.Component {
     todos[i].text = text
     this.setState({ todos: todos })
   }
+  handleBlurItem(i) {
+    console.log('blur')
+    const todos = [...this.state.todos]
+    todos.forEach((todo) => (todo.isEdit = false))
+    this.setState({ todos: todos })
+  }
+  handleKeyPressItem(e, i) {
+    if (e.key !== 'Enter') return
+    this.handleBlurItem(i)
+  }
   handleDoubleClickListItem(i) {
     const todos = [...this.state.todos]
     todos.forEach((todo) => (todo.isEdit = false))
@@ -47,6 +57,8 @@ class App extends React.Component {
         onDoubleClick={() => this.handleDoubleClickListItem(index)}
         onClick={() => this.handleClickListItemCheckbox(index)}
         onChange={(e) => this.handleChangeItem(index, e.target.value)}
+        onBlur={(e) => this.handleBlurItem(index)}
+        onKeyPress={(e) => this.handleKeyPressItem(e, index)}
       />
     ))
 
