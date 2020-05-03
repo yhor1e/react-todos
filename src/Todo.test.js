@@ -14,6 +14,11 @@ describe('<Todo>', () => {
     expect(wrapper.find('input[type="checkbox"]')).toHaveLength(1)
   })
 
+  it('should output a button', () => {
+    const wrapper = shallow(<Todo />)
+    expect(wrapper.find('button')).toHaveLength(1)
+  })
+
   it('accepts a isDone prop', () => {
     const wrapper = shallow(<Todo isDone={true} />)
     expect(
@@ -22,10 +27,17 @@ describe('<Todo>', () => {
     expect(wrapper.find('p').prop('className')).toEqual('done')
   })
 
-  it('accepts a onClick prop', () => {
+  it('accepts a onClickCheckbox prop', () => {
     const mockClick = jest.fn()
     const wrapper = shallow(<Todo onClick={mockClick} />)
     wrapper.find('input[type="checkbox"]').simulate('click')
+    expect(mockClick).toHaveBeenCalled()
+  })
+
+  it('accepts a onClickDeleteButton prop', () => {
+    const mockClick = jest.fn()
+    const wrapper = shallow(<Todo onClickDeleteButton={mockClick} />)
+    wrapper.find('button').simulate('click')
     expect(mockClick).toHaveBeenCalled()
   })
 
@@ -53,7 +65,7 @@ describe('<Todo>', () => {
   it('should output a p and accepts a text prop', () => {
     const wrapper = shallow(<Todo text="todo" />)
     expect(wrapper.find('p')).toHaveLength(1)
-    expect(wrapper.text()).toEqual('todo')
+    expect(wrapper.find('p').text()).toEqual('todo')
   })
 
   it('should output a input (accepts a isEdit prop)', () => {

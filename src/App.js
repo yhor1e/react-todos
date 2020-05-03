@@ -58,6 +58,14 @@ class App extends React.Component {
     todos[i].isDone = !todos[i].isDone
     this.setState({ todos: todos })
   }
+  handleClickDeleteButton(id) {
+    db.todos.delete(id)
+      .then(() => {
+        const todos = [...this.state.todos]
+        todos.splice(todos.findIndex((todo)=>todo.id === id), 1)
+        this.setState({ todos: todos });
+      });
+  }
   render() {
     const listItems = this.state.todos.map((todo, i) => (
       <Todo
@@ -67,6 +75,7 @@ class App extends React.Component {
         isDone={todo.isDone}
         onDoubleClick={() => this.handleDoubleClickListItem(i)}
         onClick={() => this.handleClickListItemCheckbox(i)}
+        onClickDeleteButton={() => this.handleClickDeleteButton(todo.id)}
         onChange={(e) => this.handleChangeItem(todo.id, e.target.value)}
         onBlur={() => this.handleBlurItem()}
         onKeyPress={(e) => this.handleKeyPressItem(e, todo.id)}

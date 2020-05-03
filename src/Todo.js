@@ -31,7 +31,10 @@ class Todo extends React.Component {
         </>
       )
     }
-    return <li>{content}</li>
+    return (<li>
+             {content}
+             <button onClick={this.props.onClickDeleteButton}>x</button>
+            </li>)
   }
 }
 
