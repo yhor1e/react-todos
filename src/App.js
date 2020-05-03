@@ -3,38 +3,48 @@ import './App.css'
 import NewTodo from './NewTodo'
 import Todos from './Todos'
 import Todo from './Todo'
+import db from './db'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      todos: [
-        { text: 'todo1', isEdit: false, isDone: false },
-        { text: 'todo2', isEdit: false, isDone: true },
-        { text: 'todo3', isEdit: false, isDone: false },
-      ],
+      todos: [],
     }
+  }
+  componentDidMount(){
+    db.todos.toArray()
+      .then((todos) => {
+        this.setState({ todos: todos });
+      });
   }
   handleKeyPressNewTodo(e) {
     if (e.key !== 'Enter') return
-    const todos = [...this.state.todos]
-    todos.push({ text: e.target.value, isEdit: false })
-    this.setState({ todos: todos })
+    const todo = { text: e.target.value, isDone: false}
+    db.todos.add(todo)
+      .then((id) => {
+        const todos = [...this.state.todos, Object.assign({}, todo, { id })];
+        this.setState({ todos: todos });
+      });
     e.target.value = ''
   }
-  handleChangeItem(i, text) {
-    const todos = [...this.state.todos]
-    todos[i].text = text
-    this.setState({ todos: todos })
+  handleChangeItem(id, text) {
+    db.todos.update(id, {text})
+      .then(() => {
+        const todos = [...this.state.todos]
+        const todo = todos.find((todo)=>todo.id === id)
+        todo.text = text
+        this.setState({ todos: todos });
+      });
   }
-  handleBlurItem(i) {
+  handleBlurItem() {
     const todos = [...this.state.todos]
     todos.forEach((todo) => (todo.isEdit = false))
     this.setState({ todos: todos })
   }
-  handleKeyPressItem(e, i) {
+  handleKeyPressItem(e, id) {
     if (e.key !== 'Enter') return
-    this.handleBlurItem(i)
+    this.handleBlurItem(id)
   }
   handleDoubleClickListItem(i) {
     const todos = [...this.state.todos]
@@ -49,17 +59,17 @@ class App extends React.Component {
     this.setState({ todos: todos })
   }
   render() {
-    const listItems = this.state.todos.map((todo, index) => (
+    const listItems = this.state.todos.map((todo, i) => (
       <Todo
-        key={index}
+        key={todo.id}
         text={todo.text}
         isEdit={todo.isEdit}
         isDone={todo.isDone}
-        onDoubleClick={() => this.handleDoubleClickListItem(index)}
-        onClick={() => this.handleClickListItemCheckbox(index)}
-        onChange={(e) => this.handleChangeItem(index, e.target.value)}
-        onBlur={(e) => this.handleBlurItem(index)}
-        onKeyPress={(e) => this.handleKeyPressItem(e, index)}
+        onDoubleClick={() => this.handleDoubleClickListItem(i)}
+        onClick={() => this.handleClickListItemCheckbox(i)}
+        onChange={(e) => this.handleChangeItem(todo.id, e.target.value)}
+        onBlur={() => this.handleBlurItem()}
+        onKeyPress={(e) => this.handleKeyPressItem(e, todo.id)}
       />
     ))
 
