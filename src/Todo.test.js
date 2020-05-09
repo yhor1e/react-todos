@@ -71,6 +71,7 @@ describe('<Todo>', () => {
   it('should output a input (accepts a isEdit prop)', () => {
     const wrapper = shallow(<Todo isEdit={true} />)
     expect(wrapper.find('input')).toHaveLength(1)
+    expect(wrapper.find('input').props().autoFocus).toEqual(true)
   })
 
   it('should output a input and accepts a text prop', () => {

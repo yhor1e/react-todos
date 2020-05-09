@@ -12,6 +12,7 @@ class Todo extends React.Component {
           onChange={this.props.onChange}
           onBlur={this.props.onBlur}
           onKeyPress={this.props.onKeyPress}
+          autoFocus={true}
         />
       )
     } else {
