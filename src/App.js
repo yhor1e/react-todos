@@ -53,10 +53,13 @@ class App extends React.Component {
     todos[i].isEdit = true
     this.setState({ todos: todos })
   }
-  handleClickListItemCheckbox(i) {
-    const todos = [...this.state.todos]
-    todos[i].isDone = !todos[i].isDone
-    this.setState({ todos: todos })
+  handleClickListItemCheckbox(e, id) {
+    db.todos.update(id, { isDone: e.target.checked }).then(() => {
+      const todos = [...this.state.todos]
+      const todo = todos.find((todo) => todo.id === id)
+      todo.isDone = !todo.isDone
+      this.setState({ todos: todos })
+    })
   }
   handleClickDeleteButton(id) {
     db.todos.delete(id)
@@ -74,7 +77,7 @@ class App extends React.Component {
         isEdit={todo.isEdit}
         isDone={todo.isDone}
         onDoubleClick={() => this.handleDoubleClickListItem(i)}
-        onClick={() => this.handleClickListItemCheckbox(i)}
+        onClick={(e) => this.handleClickListItemCheckbox(e, todo.id)}
         onClickDeleteButton={() => this.handleClickDeleteButton(todo.id)}
         onChange={(e) => this.handleChangeItem(todo.id, e.target.value)}
         onBlur={() => this.handleBlurItem()}
