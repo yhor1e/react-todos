@@ -18,11 +18,10 @@ class App extends React.Component {
       todos: [],
     }
   }
-  componentDidMount(){
-    db.todos.toArray()
-      .then((todos) => {
-        this.setState({ todos: todos });
-      });
+  componentDidMount() {
+    db.todos.toArray().then((todos) => {
+      this.setState({ todos: todos })
+    })
   }
   handleKeyPressNewTodo(e) {
     if (e.key !== 'Enter') return
