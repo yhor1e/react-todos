@@ -25,22 +25,20 @@ class App extends React.Component {
   }
   handleKeyPressNewTodo(e) {
     if (e.key !== 'Enter') return
-    const todo = { text: e.target.value, isDone: false}
-    db.todos.add(todo)
-      .then((id) => {
-        const todos = [...this.state.todos, Object.assign({}, todo, { id })];
-        this.setState({ todos: todos });
-      });
+    const todo = { text: e.target.value, isDone: false }
+    db.todos.add(todo).then((id) => {
+      const todos = [...this.state.todos, Object.assign({}, todo, { id })]
+      this.setState({ todos: todos })
+    })
     e.target.value = ''
   }
   handleChangeItem(id, text) {
-    db.todos.update(id, {text})
-      .then(() => {
-        const todos = [...this.state.todos]
-        const todo = todos.find((todo)=>todo.id === id)
-        todo.text = text
-        this.setState({ todos: todos });
-      });
+    db.todos.update(id, { text }).then(() => {
+      const todos = [...this.state.todos]
+      const todo = todos.find((todo) => todo.id === id)
+      todo.text = text
+      this.setState({ todos: todos })
+    })
   }
   handleBlurItem() {
     const todos = [...this.state.todos]
