@@ -4,6 +4,12 @@ import NewTodo from './NewTodo'
 import Todos from './Todos'
 import Todo from './Todo'
 import db from './db'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+} from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
@@ -62,15 +68,26 @@ class App extends React.Component {
     })
   }
   handleClickDeleteButton(id) {
-    db.todos.delete(id)
-      .then(() => {
-        const todos = [...this.state.todos]
-        todos.splice(todos.findIndex((todo)=>todo.id === id), 1)
-        this.setState({ todos: todos });
-      });
+    db.todos.delete(id).then(() => {
+      const todos = [...this.state.todos]
+      todos.splice(
+        todos.findIndex((todo) => todo.id === id),
+        1
+      )
+      this.setState({ todos: todos })
+    })
   }
-  render() {
-    const listItems = this.state.todos.map((todo, i) => (
+  getListItems(filter) {
+    let filtered
+    if (filter === 'done') {
+      filtered = this.state.todos.filter((todo) => todo.isDone === true)
+    } else if (filter === 'active') {
+      filtered = this.state.todos.filter((todo) => todo.isDone === false)
+    } else {
+      filtered = this.state.todos
+    }
+
+    return filtered.map((todo, i) => (
       <Todo
         key={todo.id}
         text={todo.text}
@@ -84,12 +101,50 @@ class App extends React.Component {
         onKeyPress={(e) => this.handleKeyPressItem(e, todo.id)}
       />
     ))
+  }
 
+  render() {
     return (
-      <div className="App">
-        <NewTodo onKeyPress={(e) => this.handleKeyPressNewTodo(e)} />
-        <Todos>{listItems}</Todos>
-      </div>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <NavLink activeClassName="active" to="/">
+                  All
+                </NavLink>
+              </li>
+              <li>
+                <NavLink activeClassName="active" to="/completed">
+                  Completed
+                </NavLink>
+              </li>
+              <li>
+                <NavLink activeClassName="active" to="/active">
+                  Active
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <div className="App">
+            <NewTodo onKeyPress={(e) => this.handleKeyPressNewTodo(e)} />
+            <Switch>
+              <Route
+                path="/completed"
+                component={() => <Todos>{this.getListItems('done')}</Todos>}
+              />
+              <Route
+                path="/active"
+                component={() => <Todos>{this.getListItems('active')}</Todos>}
+              />
+              <Route
+                path="/"
+                component={() => <Todos>{this.getListItems('all')}</Todos>}
+              />
+            </Switch>
+          </div>
+        </div>
+      </Router>
     )
   }
 }
