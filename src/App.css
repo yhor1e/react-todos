@@ -1,3 +1,64 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f5f5f5;
+  min-width: 230px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.App > input {
+  width: 98%;
+}
+
+.App ul li {
+  position: relative;
+  margin: 4px 0;
+}
+
+.App ul li p {
+  display: inline-block;
+  margin: 0;
+  padding: 0 0 0 25px;
+  vertical-align: middle;
+}
+
+.App ul li input[type='text'] {
+  margin: 0 0 0 25px;
+}
+
+.App ul li input[type='checkbox'] {
+  position: absolute;
+  left: 0;
+  vertical-align: middle;
+}
+
+.App ul button {
+  color: grey;
+  position: absolute;
+  right: 0;
+  margin: 0;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  border: 0;
+  background-color: inherit;
+}
+
+.App ul button:hover {
+  color: black;
+}
+
+.App ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 .done {
   text-decoration: line-through;
   color: grey;

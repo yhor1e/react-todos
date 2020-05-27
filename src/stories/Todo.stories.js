@@ -32,3 +32,16 @@ export const edit = () => (
     onKeyPress={action('clicked')}
   />
 )
+
+export const done = () => (
+  <Todo
+    text="text"
+    isDone={true}
+    onDoubleClick={action('clicked')}
+    onClick={action('clicked')}
+    onClickDeleteButton={action('clicked')}
+    onChange={action('clicked')}
+    onBlur={action('clicked')}
+    onKeyPress={action('clicked')}
+  />
+)
